@@ -13,6 +13,8 @@ import LocationPage from "./pages/LocationPage";
 import VentePage from "./pages/VentePage";
 import ContactPage from "./pages/ContactPage";
 import ServicesPage from "./pages/ServicesPage";
+import NettoyagePage from "./pages/NettoyagePage";
+import NettoyageDetailPage from "./pages/NettoyageDetailPage";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import NotFound from "./pages/NotFound";
 
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/vente" element={<VentePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/nettoyage" element={<NettoyagePage />} />
+          <Route path="/nettoyage/:slug" element={<NettoyageDetailPage />} />
           <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
