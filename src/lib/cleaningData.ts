@@ -201,6 +201,7 @@ export const CLEANING_SERVICES: CleaningService[] = [
     slug: "nettoyage-evenements",
     icon: "PartyPopper",
     badge: "Sur devis",
+    image: imgEvenements,
     title: "Événements & Réceptions",
     heroTitle: "Nettoyage Événementiel à Cotonou",
     heroAccroche:
