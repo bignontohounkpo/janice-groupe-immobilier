@@ -20,26 +20,38 @@ const ServiceCard = ({ service }: { service: CleaningService }) => {
     <Link to={`/nettoyage/${service.slug}`}>
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className="group relative bg-card rounded-2xl border border-border p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:border-b-4 hover:border-b-accent h-full flex flex-col"
+        className="group relative bg-card rounded-2xl border border-border overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:border-b-4 hover:border-b-accent h-full flex flex-col"
       >
-        {/* Badge */}
-        <span className="absolute top-4 right-4 text-xs font-semibold bg-accent/10 text-accent px-3 py-1 rounded-full">
-          {service.badge}
-        </span>
-
-        {/* Icon */}
-        <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-          <Icon className="text-primary" size={28} />
+        {/* Image */}
+        <div className="relative h-44 overflow-hidden">
+          <img
+            src={service.image}
+            alt={`Service de nettoyage ${service.title}`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+          />
+          {/* Badge */}
+          <span className="absolute top-3 right-3 text-xs font-semibold bg-accent/90 text-accent-foreground px-3 py-1 rounded-full">
+            {service.badge}
+          </span>
         </div>
 
-        {/* Content */}
-        <h3 className="font-heading text-lg font-bold text-foreground mb-2">{service.title}</h3>
-        <p className="text-muted-foreground text-sm leading-relaxed flex-1">{service.shortDescription}</p>
+        <div className="p-5 flex flex-col flex-1">
+          {/* Icon + Title */}
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+              <Icon className="text-primary" size={20} />
+            </div>
+            <h3 className="font-heading text-lg font-bold text-foreground">{service.title}</h3>
+          </div>
 
-        {/* Link hint */}
-        <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-          En savoir plus <ArrowRight size={16} />
-        </span>
+          <p className="text-muted-foreground text-sm leading-relaxed flex-1">{service.shortDescription}</p>
+
+          {/* Link hint */}
+          <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+            En savoir plus <ArrowRight size={16} />
+          </span>
+        </div>
       </motion.div>
     </Link>
   );
