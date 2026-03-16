@@ -26,7 +26,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "RealEstateAgent",
             name: "GANDA Immobilier",
-            telephone: "+22901549000805",
+            telephone: "+229 97507052",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Cotonou",

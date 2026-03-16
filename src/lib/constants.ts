@@ -1,16 +1,15 @@
 /** Global constants for the real estate agency website */
 
 export const AGENCY = {
-  NAME: "GANDA Immobilier",
-  PHONE: "+229 01 54 90 08 05",
-  PHONE_LINK: "tel:+22901549000805",
-  EMAIL: "contact@votreagence.com",
+  NAME: "JANICE GROUPE IMMOBILIER",
+  PHONE: "+229 97507052",
+  PHONE_LINK: "tel:+22997507052",
+  EMAIL: "contact@gji-immobilier-benin.com",
   ADDRESS: "Cotonou, Bénin",
-  WHATSAPP: "https://wa.me/22901549000805",
+  WHATSAPP: "https://wa.me/22997507052",
 } as const;
 
 export const NAV_LINKS = [
-  { label: "Accueil", href: "/" },
   { label: "Location", href: "/location" },
   { label: "Vente", href: "/vente" },
   { label: "Annonces", href: "/annonces" },
@@ -23,7 +22,7 @@ export const HERO = {
   TITLE: "Trouvez le bien immobilier de vos rêves au Bénin",
   SUBTITLE: "Appartements, villas et terrains à Cotonou et environs. Notre équipe vous accompagne de la recherche à la signature.",
   CTA_PRIMARY: "Voir les annonces",
-  CTA_SECONDARY: "Parler à un conseiller",
+  CTA_SECONDARY: "Nous contacter",
   BADGE: "⭐ +250 biens disponibles · Cotonou · Calavi · Abomey-Calavi",
 } as const;
 

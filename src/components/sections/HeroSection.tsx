@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { HERO } from "@/lib/constants";
-import heroBg from "@/assets/hero-bg.jpg";
 
 /** Hero section with gradient overlay, headline and CTAs */
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+    <section className="relative lg-py-15 py-10 flex items-center overflow-hidden">
       {/* Background image */}
       <img
-        src={heroBg}
+        src="/hero-bg.jpg"
         alt="Villa de luxe au Bénin"
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -21,14 +20,14 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="max-w-2xl"
+          className="justify-center text-center max-w-3xl mx-auto"
         >
           {/* Badge */}
           <span className="inline-block bg-accent/20 text-accent-foreground text-sm font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm border border-accent/30">
             {HERO.BADGE}
           </span>
 
-          <h1 className="font-heading font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight text-primary-foreground mb-6">
+          <h1 className="font-heading font-extrabold text-2xl md:text-4xl lg:text-6xl leading-tight text-primary-foreground mb-6">
             {HERO.TITLE}
           </h1>
 
@@ -36,7 +35,7 @@ const HeroSection = () => {
             {HERO.SUBTITLE}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/annonces"
               className="bg-accent text-accent-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity text-center"

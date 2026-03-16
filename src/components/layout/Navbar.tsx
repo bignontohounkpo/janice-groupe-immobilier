@@ -36,8 +36,14 @@ const Navbar = () => {
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="font-heading font-bold text-xl md:text-2xl text-primary">
-            {AGENCY.NAME}
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="/logo.webp"
+              alt={AGENCY.NAME}
+              className="h-20 w-20"
+              
+            />
+            <span className="sr-only">{AGENCY.NAME}</span>
           </Link>
 
           {/* Desktop nav */}
