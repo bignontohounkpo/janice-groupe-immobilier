@@ -3,19 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ─── SEO PRINCIPAL ──────────────────────────────────────
+         Le title est la balise la plus importante pour Google.
+         Format : Mot-clé principal | Nom agence | Localisation
+         Max 60 caractères pour éviter la troncature dans les SERP
+    ──────────────────────────────────────────────────────────── -->
     <title>Agence Immobilière Cotonou | Location & Vente au Bénin</title>
-    <meta name="description" content="Trouvez votre appartement, villa ou terrain à Cotonou. +250 biens vérifiés. Agence de confiance depuis 12 ans. Contactez-nous gratuitement." />
-    <meta name="author" content="GANDA Immobilier" />
+
+    <meta
+      name="description"
+      content="Agence immobilière à Cotonou : appartements meublés, villas et terrains à louer ou acheter au Bénin. +250 biens vérifiés, accompagnement complet. Contactez-nous gratuitement."
+    />
+
+    <!-- Mots-clés secondaires ciblant les recherches locales -->
+    <meta
+      name="keywords"
+      content="agence immobilière Cotonou, appartement à louer Cotonou, villa à louer Bénin, terrain à vendre Cotonou, location appartement meublé Cotonou, immobilier Bénin, maison à louer Cotonou, achat immobilier Bénin, service de nettoyage"
+    />
+
+    <!-- Auteur et robots -->
+    <meta name="author" content="[Nom de votre agence]" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Langue et région ciblée -->
+    <meta name="language" content="French" />
+    <meta name="geo.region" content="BJ" />
+    <meta name="geo.placename" content="Cotonou, Bénin" />
+    <meta name="geo.position" content="6.3654;2.4183" />
+    <meta name="ICBM" content="6.3654, 2.4183" />
+
+    <!-- URL canonique : évite le contenu dupliqué -->
     <link rel="canonical" href="https://votreagence.com/" />
 
-    <meta property="og:title" content="Agence Immobilière Cotonou | Location & Vente au Bénin" />
-    <meta property="og:description" content="Trouvez votre appartement, villa ou terrain à Cotonou. +250 biens vérifiés." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- ─── OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ─────────
+         Ces balises contrôlent l'aperçu quand le lien est partagé
+         sur les réseaux sociaux. Très important en Afrique de l'Ouest
+         où WhatsApp est le 1er canal de partage.
+    ──────────────────────────────────────────────────────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:locale"      content="fr_BJ" />
+    <meta property="og:site_name"   content="[Nom de votre agence]" />
+    <meta property="og:url"         content="https://votreagence.com/" />
+    <meta property="og:title"       content="Agence Immobilière Cotonou | Location & Vente au Bénin" />
+    <meta
+      property="og:description"
+      content="Appartements meublés, villas et terrains à louer ou acheter à Cotonou. +250 biens vérifiés, accompagnement complet de la recherche à la signature."
+    />
+    <!-- TODO: Remplace cette URL par le vrai logo/bannière de l'agence (1200x630px) -->
+    <meta property="og:image"       content="https://votreagence.com/images/og-banner.jpg" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"   content="[Nom de votre agence] — Agence immobilière à Cotonou, Bénin" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- ─── TWITTER CARD ──────────────────────────────────────
+         Contrôle l'aperçu sur Twitter/X
+    ──────────────────────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="Agence Immobilière Janice Groupe internationale Cotonou | Location & Vente au Bénin" />
+    <meta
+      name="twitter:description"
+      content="Appartements meublés, villas et terrains à louer ou acheter à Cotonou. +250 biens vérifiés."
+    />
+    <!-- TODO: Remplace cette URL par le vrai logo/bannière de l'agence (1200x630px) -->
+    <meta name="twitter:image"       content="https://votreagence.com/images/og-banner.jpg" />
+    <meta name="twitter:image:alt"   content="[Nom de votre agence] — Agence immobilière Cotonou" />
+
+    <!-- ─── DONNÉES STRUCTURÉES JSON-LD ──────────────────────
+         Aide Google à comprendre que c'est une agence immobilière
+         locale. Améliore l'affichage dans les résultats de recherche
+         (rich snippets : adresse, téléphone, étoiles).
+    ──────────────────────────────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "[Nom de votre agence]",
+      "description": "Agence immobilière à Cotonou spécialisée dans la location et la vente d'appartements, villas et terrains au Bénin.",
+      "url": "https://votreagence.com",
+      "logo": "https://votreagence.com/images/logo.png",
+      "image": "https://votreagence.com/images/og-banner.jpg",
+      "telephone": "+22901549000805",
+      "email": "contact@votreagence.com",
+      "foundingDate": "2012",
+      "areaServed": {
+        "@type": "City",
+        "name": "Cotonou",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Bénin"
+        }
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[Votre adresse]",
+        "addressLocality": "Cotonou",
+        "addressCountry": "BJ"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "6.3654",
+        "longitude": "2.4183"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "13:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/votreagence",
+        "https://www.instagram.com/votreagence",
+        "https://www.linkedin.com/company/votreagence"
+      ]
+    }
+    </script>
+
+    <!-- ─── FAVICON & ICÔNES ───────────────────────────────────
+         TODO: Génère tes favicons sur https://realfavicongenerator.net
+         à partir du logo de l'agence et remplace ces liens.
+    ──────────────────────────────────────────────────────────── -->
+    <link rel="icon"             type="image/x-icon"  href="/favicon.ico" />
+    <link rel="icon"             type="image/png"     sizes="32x32"  href="/favicon-32x32.png" />
+    <link rel="icon"             type="image/png"     sizes="16x16"  href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon"                      sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest"         href="/site.webmanifest" />
+    <meta name="theme-color"     content="#1A5276" />
+
+    <!-- ─── PERFORMANCE ──────────────────────────────────────
+         Précharge les ressources critiques pour améliorer
+         le LCP (Largest Contentful Paint) — métrique Google
+    ──────────────────────────────────────────────────────────── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+    />
+
   </head>
 
   <body>
