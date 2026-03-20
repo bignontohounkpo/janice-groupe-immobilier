@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { HERO } from "@/lib/constants";
 
 /** Hero section with gradient overlay, headline and CTAs */
@@ -12,16 +11,12 @@ const HeroSection = () => {
         alt="Villa de luxe au Bénin"
         className="absolute inset-0 w-full h-full object-cover"
       />
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 gradient-hero" />
 
       <div className="container-custom relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="justify-center text-center max-w-3xl mx-auto"
-        >
+        <div className="justify-center text-center max-w-3xl mx-auto">
           {/* Badge */}
           <span className="inline-block bg-accent/20 text-accent-foreground text-sm font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm border border-accent/30">
             {HERO.BADGE}
@@ -42,12 +37,14 @@ const HeroSection = () => {
             >
               {HERO.CTA_PRIMARY}
             </Link>
+
             <Link
               to="/opportunites"
               className="bg-secondary text-secondary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity text-center"
             >
               Nos opportunités
             </Link>
+
             <Link
               to="/contact"
               className="border-2 border-primary-foreground/80 text-primary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:bg-primary-foreground/10 transition-colors text-center"
@@ -55,7 +52,7 @@ const HeroSection = () => {
               {HERO.CTA_SECONDARY}
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
