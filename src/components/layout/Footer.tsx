@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
-import { AGENCY, NAV_LINKS } from "@/lib/constants";
+import Link from "next/link"
+import { Phone, Mail, MapPin } from "lucide-react"
+import { AGENCY, NAV_LINKS } from "@/lib/constants"
 
 /** Site footer with navigation, contact info and legal */
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
-                    to={link.href}
+                    href={link.href}
                     className="text-sm text-primary-foreground/80 hover:text-accent transition-colors"
                   >
                     {link.label}
@@ -60,13 +60,13 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/20 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/60">
           <p>© {new Date().getFullYear()} {AGENCY.NAME}. Tous droits réservés.</p>
-          <Link to="/mentions-legales" className="hover:text-accent transition-colors">
+          <Link href="/mentions-legales" className="hover:text-accent transition-colors">
             Mentions légales
           </Link>
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

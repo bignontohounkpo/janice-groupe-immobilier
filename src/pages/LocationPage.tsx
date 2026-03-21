@@ -1,23 +1,25 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import AnnoncesPage from "./AnnoncesPage";
+"use client"
+
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
+import AnnoncesPage from "./AnnoncesPage"
 
 /** Location page — Annonces page pre-filtered to "louer" */
 const LocationPage = () => {
-  const [, setSearchParams] = useSearchParams();
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    setSearchParams((prev) => {
-      prev.set("type", "louer");
-      return prev;
-    });
-  }, [setSearchParams]);
+    // Only redirect if type is not already set to "louer"
+    if (searchParams?.get("type") !== "louer") {
+      const params = new URLSearchParams(searchParams?.toString() ?? "")
+      params.set("type", "louer")
+      router.replace(`/annonces?${params.toString()}`)
+    }
+  }, [searchParams, router])
 
-  return (
-    <>
-      <AnnoncesPage />
-    </>
-  );
-};
+  // Show the AnnoncesPage directly (filters are in URL)
+  return <AnnoncesPage />
+}
 
-export default LocationPage;
+export default LocationPage

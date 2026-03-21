@@ -1,5 +1,7 @@
+"use client";
+
 import { TrendingUp, MapPin, Ruler, DollarSign, Target } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { MOCK_PROPERTIES } from "@/lib/mockData";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -78,7 +80,7 @@ const OpportunitiesPage = () => {
             Nos experts vous accompagnent à chaque étape : analyse d'investissement, financement, légalité et suivi. Contactez-nous pour une consultation gratuite.
           </p>
           <Link
-            to="/contact"
+            href="/contact"
             className="inline-block bg-background text-foreground font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
           >
             Consulter nos experts

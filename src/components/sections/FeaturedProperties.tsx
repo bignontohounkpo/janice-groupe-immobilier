@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+"use client";
+
 import { motion } from "framer-motion";
 import { MOCK_PROPERTIES } from "@/lib/mockData";
 import PropertyCard from "@/components/properties/PropertyCard";
+import Link from "next/link";
 
 /** Featured properties grid on the homepage */
 const FeaturedProperties = () => {
@@ -20,7 +22,7 @@ const FeaturedProperties = () => {
             </p>
           </div>
           <Link
-            to="/annonces"
+            href="/annonces"
             className="text-secondary font-medium hover:text-primary transition-colors whitespace-nowrap"
           >
             Voir toutes les annonces →

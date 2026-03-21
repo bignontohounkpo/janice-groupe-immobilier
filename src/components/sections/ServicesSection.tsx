@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+"use client";
+
 import { Building2, Home, TrendingUp, Hammer } from "lucide-react";
 import { motion } from "framer-motion";
 import { SERVICES } from "@/lib/constants";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Building2,
@@ -47,7 +49,7 @@ const ServicesSection = () => {
                   {item.text}
                 </p>
                 <Link
-                  to={item.href}
+                  href={item.href}
                   className="text-secondary font-medium text-sm hover:text-primary transition-colors"
                 >
                   {item.link}

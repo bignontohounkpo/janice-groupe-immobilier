@@ -1,5 +1,7 @@
+"use client";
+
 import { Building2, Home, TrendingUp, Hammer, Users, Shield } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const SERVICES_LIST = [
@@ -82,7 +84,7 @@ const ServicesPage = () => {
                   {service.description}
                 </p>
                 <Link
-                  to={service.link}
+                  href={service.link}
                   className="text-secondary font-medium text-sm hover:text-primary transition-colors"
                 >
                   {service.cta} →

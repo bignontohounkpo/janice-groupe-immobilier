@@ -1,23 +1,25 @@
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import AnnoncesPage from "./AnnoncesPage";
+"use client"
+
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect } from "react"
+import AnnoncesPage from "./AnnoncesPage"
 
 /** Vente page — Annonces page pre-filtered to "vendre" */
 const VentePage = () => {
-  const [, setSearchParams] = useSearchParams();
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    setSearchParams((prev) => {
-      prev.set("type", "vendre");
-      return prev;
-    });
-  }, [setSearchParams]);
+    // Only redirect if type is not already set to "vendre"
+    if (searchParams?.get("type") !== "vendre") {
+      const params = new URLSearchParams(searchParams?.toString() ?? "")
+      params.set("type", "vendre")
+      router.replace(`/annonces?${params.toString()}`)
+    }
+  }, [searchParams, router])
 
-  return (
-    <>
-      <AnnoncesPage />
-    </>
-  );
-};
+  // Show the AnnoncesPage directly (filters are in URL)
+  return <AnnoncesPage />
+}
 
-export default VentePage;
+export default VentePage
