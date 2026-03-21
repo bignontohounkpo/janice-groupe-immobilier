@@ -3,15 +3,42 @@
 import { TrendingUp, MapPin, Ruler, DollarSign, Target } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { MOCK_PROPERTIES } from "@/lib/mockData";
+import { fetchProperties } from "@/lib/api";
 import PropertyCard from "@/components/properties/PropertyCard";
+import { useState, useEffect } from "react";
 import type { Property } from "@/types/property";
 
 const OpportunitiesPage = () => {
-  // Filter only terrain properties for sale
-  const terrainOpportunities = MOCK_PROPERTIES.filter(
-    (property) => property.offerType === "vendre" && property.category === "terrain"
-  );
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProperties() {
+      try {
+        const all = await fetchProperties();
+        // Filter only terrain properties for sale
+        const terrainOpportunities = all.filter(
+          (property) => property.offerType === "vendre" && property.category === "terrain"
+        );
+        setProperties(terrainOpportunities);
+      } catch (error) {
+        console.error("Error loading opportunities:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProperties();
+  }, []);
+
+  if (loading) {
+    return (
+      <main className="section-padding">
+        <div className="container-custom text-center">
+          <p className="text-muted-foreground text-lg">Chargement...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="section-padding">
@@ -26,10 +53,8 @@ const OpportunitiesPage = () => {
           </p>
         </div>
 
-
-
-        {/* Properties Grid - using existing PropertyCard component */}
-        {terrainOpportunities.length === 0 ? (
+        {/* Properties Grid */}
+        {properties.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-muted-foreground text-lg">
               Aucun terrain disponible pour le moment.
@@ -37,37 +62,34 @@ const OpportunitiesPage = () => {
           </div>
         ) : (
           <>
-
-          
             <p className="text-sm text-muted-foreground mb-6">
-              {terrainOpportunities.length} terrain{terrainOpportunities.length > 1 ? "s" : ""} disponible{terrainOpportunities.length > 1 ? "s" : ""}
+              {properties.length} terrain{properties.length > 1 ? "s" : ""} disponible{properties.length > 1 ? "s" : ""}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {terrainOpportunities.map((property) => (
+              {properties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
 
-                    {/* Hero stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
-            <p className="text-2xl md:text-3xl font-bold text-primary mb-1">28%</p>
-            <p className="text-sm text-muted-foreground">ROI moyen</p>
-          </div>
-          <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
-            <p className="text-2xl md:text-3xl font-bold text-primary mb-1">{terrainOpportunities.length}</p>
-            <p className="text-sm text-muted-foreground">Terrains disponibles</p>
-          </div>
-          <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
-            <p className="text-2xl md:text-3xl font-bold text-primary mb-1">24h</p>
-            <p className="text-sm text-muted-foreground">Réponse garantie</p>
-          </div>
-          <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
-            <p className="text-2xl md:text-3xl font-bold text-primary mb-1">100%</p>
-            <p className="text-sm text-muted-foreground">Sécurisé</p>
-          </div>
-        </div>       
-
+            {/* Hero stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+              <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-primary mb-1">28%</p>
+                <p className="text-sm text-muted-foreground">ROI moyen</p>
+              </div>
+              <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-primary mb-1">{properties.length}</p>
+                <p className="text-sm text-muted-foreground">Terrains disponibles</p>
+              </div>
+              <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-primary mb-1">24h</p>
+                <p className="text-sm text-muted-foreground">Réponse garantie</p>
+              </div>
+              <div className="bg-card rounded-2xl shadow-card p-4 md:p-6 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-primary mb-1">100%</p>
+                <p className="text-sm text-muted-foreground">Sécurisé</p>
+              </div>
+            </div>
           </>
         )}
 

@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Search } from "lucide-react"
-import { MOCK_PROPERTIES } from "@/lib/mockData"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { fetchPropertiesPaginated } from "@/lib/api"
 import { CATEGORY_LABELS, DISTRICTS } from "@/lib/constants"
 import { useDebounce } from "@/hooks/useDebounce"
 import PropertyCard from "@/components/properties/PropertyCard"
-import type { OfferType, PropertyCategory } from "@/types/property"
+import type { OfferType, PropertyCategory, Property } from "@/types/property"
 
 interface AnnoncesPageProps {
   forcedOfferType?: OfferType
@@ -18,9 +18,22 @@ interface AnnoncesPageProps {
 }
 
 /** Annonces page with filters and property grid */
-const AnnoncesPage = ({ forcedOfferType, title, description, hideOfferTypeFilter = false, basePath = "/annonces" }: AnnoncesPageProps) => {
+const AnnoncesPage = ({
+  forcedOfferType,
+  title,
+  description,
+  hideOfferTypeFilter = false,
+  basePath = "/annonces"
+}: AnnoncesPageProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
+
+  const [properties, setProperties] = useState<Property[]>([])
+  const [total, setTotal] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   const search = searchParams?.get("search") ?? ""
   const debouncedSearch = useDebounce(search)
@@ -35,6 +48,9 @@ const AnnoncesPage = ({ forcedOfferType, title, description, hideOfferTypeFilter
     if (value) params.set(key, value)
     else params.delete(key)
 
+    // Reset to page 1 when filters change
+    params.delete("page")
+
     // Add forced offer type to params if needed
     if (forcedOfferType && key !== "type") {
       params.set("type", forcedOfferType)
@@ -43,22 +59,40 @@ const AnnoncesPage = ({ forcedOfferType, title, description, hideOfferTypeFilter
     router.push(`${basePath}?${params.toString()}`)
   }
 
-  const filtered = useMemo(() => {
-    return MOCK_PROPERTIES.filter((p) => {
-      if (offerType && p.offerType !== offerType) return false
-      if (category && p.category !== category) return false
-      if (district && p.district !== district) return false
-      if (debouncedSearch) {
-        const q = debouncedSearch.toLowerCase()
-        return (
-          p.title.toLowerCase().includes(q) ||
-          p.location.toLowerCase().includes(q) ||
-          p.description.toLowerCase().includes(q)
-        )
+  // Charger les propriétés avec pagination
+  useEffect(() => {
+    async function loadProperties() {
+      setLoading(true)
+      setError(null)
+      try {
+        const data = await fetchPropertiesPaginated({
+          offerType: forcedOfferType,
+          category,
+          district,
+          search: debouncedSearch,
+          page: currentPage,
+          pageSize: 12,
+        })
+        setProperties(data.properties)
+        setTotal(data.total)
+        setTotalPages(data.totalPages)
+      } catch (err) {
+        console.error("Error loading properties:", err)
+        setError("Impossible de charger les propriétés")
+      } finally {
+        setLoading(false)
       }
-      return true
-    })
-  }, [offerType, category, district, debouncedSearch])
+    }
+    loadProperties()
+  }, [forcedOfferType, currentPage, category, district, debouncedSearch])
+
+
+
+  const goToPage = (page: number) => {
+    const params = new URLSearchParams(searchParams?.toString() ?? "")
+    params.set("page", String(page))
+    router.push(`${basePath}?${params.toString()}`)
+  }
 
   return (
     <main className="section-padding">
@@ -134,7 +168,15 @@ const AnnoncesPage = ({ forcedOfferType, title, description, hideOfferTypeFilter
         </div>
 
         {/* Results */}
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground text-lg">Chargement...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-16">
+            <p className="text-destructive text-lg">{error}</p>
+          </div>
+        ) : properties.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-muted-foreground text-lg">
               Aucun bien ne correspond à votre recherche.
@@ -143,13 +185,52 @@ const AnnoncesPage = ({ forcedOfferType, title, description, hideOfferTypeFilter
         ) : (
           <>
             <p className="text-sm text-muted-foreground mb-6">
-              {filtered.length} bien{filtered.length > 1 ? "s" : ""} trouvé{filtered.length > 1 ? "s" : ""}
+              {total} bien{total > 1 ? "s" : ""} trouvé{total > 1 ? "s" : ""}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((property) => (
+              {properties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8">
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-lg border border-input bg-background hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Page précédente"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                <div className="flex gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => goToPage(page)}
+                      className={`min-w-[40px] px-3 py-2 rounded-lg border transition-colors ${
+                        currentPage === page
+                          ? "bg-accent text-accent-foreground border-accent"
+                          : "border-input bg-background hover:bg-muted"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-lg border border-input bg-background hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Page suivante"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>

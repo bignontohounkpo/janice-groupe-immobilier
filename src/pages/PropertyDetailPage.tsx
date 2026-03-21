@@ -1,19 +1,59 @@
-"use client";
+"use client"
 
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import { MapPin, BedDouble, Bath, Maximize2, ArrowLeft, Check, Phone } from "lucide-react";
-import { MOCK_PROPERTIES } from "@/lib/mockData";
-import { formatPrice } from "@/lib/utils";
-import { CATEGORY_LABELS, AGENCY } from "@/lib/constants";
-import PropertyCard from "@/components/properties/PropertyCard";
-import { useState } from "react";
+import { useParams } from "next/navigation"
+import Link from "next/link"
+import { MapPin, BedDouble, Bath, Maximize2, ArrowLeft, Check } from "lucide-react"
+import { fetchProperties } from "@/lib/api"
+import { formatPrice } from "@/lib/utils"
+import { CATEGORY_LABELS, AGENCY } from "@/lib/constants"
+import PropertyCard from "@/components/properties/PropertyCard"
+import { useState, useEffect } from "react"
+import type { Property } from "@/types/property"
 
 /** Property detail page */
 const PropertyDetailPage = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const property = MOCK_PROPERTIES.find((p) => p.slug === slug);
-  const [selectedImage, setSelectedImage] = useState(0);
+  const { slug } = useParams<{ slug: string }>()
+  const [property, setProperty] = useState<Property | null>(null)
+  const [similar, setSimilar] = useState<Property[]>([])
+  const [loading, setLoading] = useState(true)
+  const [selectedImage, setSelectedImage] = useState(0)
+
+  useEffect(() => {
+    async function loadProperty() {
+      if (!slug) return
+
+      setLoading(true)
+      try {
+        const all = await fetchProperties()
+        const found = all.find((p) => p.slug === slug)
+
+        if (found) {
+          setProperty(found)
+          // Biens similaires (même type d'offre)
+          setSimilar(
+            all
+              .filter((p) => p.id !== found.id && p.offerType === found.offerType)
+              .slice(0, 3)
+          )
+        }
+      } catch (error) {
+        console.error("Error loading property:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProperty()
+  }, [slug])
+
+  if (loading) {
+    return (
+      <main className="section-padding">
+        <div className="container-custom text-center">
+          <p className="text-muted-foreground text-lg">Chargement...</p>
+        </div>
+      </main>
+    )
+  }
 
   if (!property) {
     return (
@@ -25,12 +65,8 @@ const PropertyDetailPage = () => {
           </Link>
         </div>
       </main>
-    );
+    )
   }
-
-  const similar = MOCK_PROPERTIES.filter(
-    (p) => p.id !== property.id && p.offerType === property.offerType
-  ).slice(0, 3);
 
   return (
     <main className="section-padding ">
@@ -129,7 +165,6 @@ const PropertyDetailPage = () => {
                 href={AGENCY.PHONE_LINK}
                 className="flex items-center justify-center gap-2 w-full mt-6 bg-accent text-accent-foreground font-semibold py-3 rounded-full hover:opacity-90 transition-opacity"
               >
-                <Phone size={18} />
                 Appeler maintenant
               </a>
               <a
@@ -181,7 +216,7 @@ const PropertyDetailPage = () => {
         }}
       />
     </main>
-  );
-};
+  )
+}
 
-export default PropertyDetailPage;
+export default PropertyDetailPage

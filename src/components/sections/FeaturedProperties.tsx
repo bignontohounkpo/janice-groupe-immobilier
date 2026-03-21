@@ -1,13 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MOCK_PROPERTIES } from "@/lib/mockData";
+import { fetchFeaturedProperties } from "@/lib/api";
 import PropertyCard from "@/components/properties/PropertyCard";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import type { Property } from "@/types/property";
 
 /** Featured properties grid on the homepage */
 const FeaturedProperties = () => {
-  const featured = MOCK_PROPERTIES.filter((p) => p.isFeatured);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadFeatured() {
+      try {
+        const data = await fetchFeaturedProperties();
+        setProperties(data.slice(0, 6)); // Max 6 sur la homepage
+      } catch (error) {
+        console.error("Error loading featured properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadFeatured();
+  }, []);
+
+  if (loading) {
+    return null; // Ou un skeleton
+  }
+
+  if (properties.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-padding">
@@ -30,7 +55,7 @@ const FeaturedProperties = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featured.map((property, i) => (
+          {properties.map((property, i) => (
             <motion.div
               key={property.id}
               initial={{ opacity: 0, y: 20 }}
