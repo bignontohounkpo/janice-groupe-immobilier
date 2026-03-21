@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { HERO } from "@/lib/constants";
+"use client"
+
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { HERO } from "@/lib/constants"
 
 /** Hero section with gradient overlay, headline and CTAs */
 const HeroSection = () => {
@@ -37,19 +39,19 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              to="/annonces"
+              href="/annonces"
               className="bg-accent text-accent-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity text-center"
             >
               {HERO.CTA_PRIMARY}
             </Link>
             <Link
-              to="/opportunites"
+              href="/opportunites"
               className="bg-secondary text-secondary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity text-center"
             >
               Nos opportunités
             </Link>
             <Link
-              to="/contact"
+              href="/contact"
               className="border-2 border-primary-foreground/80 text-primary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:bg-primary-foreground/10 transition-colors text-center"
             >
               {HERO.CTA_SECONDARY}

@@ -1,4 +1,7 @@
-import { useParams, Link } from "react-router-dom";
+"use client";
+
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { MapPin, BedDouble, Bath, Maximize2, ArrowLeft, Check, Phone } from "lucide-react";
 import { MOCK_PROPERTIES } from "@/lib/mockData";
 import { formatPrice } from "@/lib/utils";
@@ -17,7 +20,7 @@ const PropertyDetailPage = () => {
       <main className="section-padding">
         <div className="container-custom text-center">
           <h1 className="font-heading font-bold text-2xl text-foreground mb-4">Bien non trouvé</h1>
-          <Link to="/annonces" className="text-secondary hover:underline">
+          <Link href="/annonces" className="text-secondary hover:underline">
             ← Retour aux annonces
           </Link>
         </div>
@@ -32,7 +35,7 @@ const PropertyDetailPage = () => {
   return (
     <main className="section-padding ">
       <div className="container-custom">
-        <Link to="/annonces" className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6">
+        <Link href="/annonces" className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6">
           <ArrowLeft size={18} />
           Retour aux annonces
         </Link>

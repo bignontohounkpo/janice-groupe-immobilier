@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+"use client";
+
 import { motion } from "framer-motion";
 import { CTA_SECTION } from "@/lib/constants";
+import Link from "next/link";
 
 /** Final CTA banner */
 const CTASection = () => {
@@ -21,7 +23,7 @@ const CTASection = () => {
             {CTA_SECTION.TEXT}
           </p>
           <Link
-            to="/contact"
+            href="/contact"
             className="inline-block bg-accent text-accent-foreground font-semibold text-base px-10 py-4 rounded-full hover:opacity-90 transition-opacity"
           >
             {CTA_SECTION.BUTTON}

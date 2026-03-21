@@ -1,16 +1,19 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useScrollTop } from "@/hooks/useScrollTop";
-import { AGENCY, NAV_LINKS } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu, X, Phone } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { useScrollTop } from "@/hooks/useScrollTop"
+import { AGENCY, NAV_LINKS } from "@/lib/constants"
+import { cn } from "@/lib/utils"
 
 /** Main navigation bar — sticky with shadow on scroll */
 const Navbar = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const scrolled = useScrollTop();
-  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const scrolled = useScrollTop()
+  const pathname = usePathname()
 
   return (
     <>
@@ -36,12 +39,11 @@ const Navbar = () => {
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <img
               src="/logo.webp"
               alt={AGENCY.NAME}
               className="h-20 w-20"
-              
             />
             <span className="sr-only">{AGENCY.NAME}</span>
           </Link>
@@ -51,10 +53,10 @@ const Navbar = () => {
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
-                to={link.href}
+                href={link.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary",
-                  location.pathname === link.href
+                  pathname === link.href
                     ? "text-primary border-b-2 border-accent pb-1"
                     : "text-foreground"
                 )}
@@ -63,7 +65,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link
-              to="/contact"
+              href="/contact"
               className="bg-accent text-accent-foreground font-semibold text-sm px-6 py-2.5 rounded-full hover:opacity-90 transition-opacity"
             >
               Nous contacter
@@ -93,11 +95,11 @@ const Navbar = () => {
                 {NAV_LINKS.map((link) => (
                   <Link
                     key={link.href}
-                    to={link.href}
+                    href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
                       "py-2 text-base font-medium",
-                      location.pathname === link.href ? "text-primary" : "text-foreground"
+                      pathname === link.href ? "text-primary" : "text-foreground"
                     )}
                   >
                     {link.label}
@@ -116,7 +118,7 @@ const Navbar = () => {
         </AnimatePresence>
       </nav>
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

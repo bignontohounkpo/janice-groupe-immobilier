@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Home, Briefcase, GraduationCap, HardHat, PartyPopper, CalendarCheck,
@@ -17,7 +19,7 @@ const ServiceCard = ({ service }: { service: CleaningService }) => {
   const Icon = ICON_MAP[service.icon] ?? Home;
 
   return (
-    <Link to={`/nettoyage/${service.slug}`}>
+    <Link href={`/nettoyage/${service.slug}`}>
       <motion.div
         whileHover={{ scale: 1.02 }}
         className="group relative bg-card rounded-2xl border border-border overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:border-b-4 hover:border-b-accent h-full flex flex-col"
@@ -80,7 +82,7 @@ const NettoyagePage = () => {
             l'entretien de vos locaux avec rigueur et professionnalisme.
           </p>
           <Link
-            to="/contact"
+            href="/contact"
             className="inline-block bg-accent text-accent-foreground font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
           >
             Demander un devis gratuit
@@ -133,7 +135,7 @@ const NettoyagePage = () => {
             sous 24h avec une proposition adaptée à votre budget.
           </p>
           <Link
-            to="/contact"
+            href="/contact"
             className="inline-block bg-accent text-accent-foreground font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
           >
             Obtenir mon devis gratuit

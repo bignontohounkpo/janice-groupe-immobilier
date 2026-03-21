@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom";
-import { MapPin, BedDouble, Bath, Maximize2 } from "lucide-react";
-import { Property } from "@/types/property";
-import { formatPrice, isNewProperty, cn } from "@/lib/utils";
-import { CATEGORY_LABELS } from "@/lib/constants";
-import React from "react";
+import Link from "next/link"
+import { MapPin, BedDouble, Bath, Maximize2 } from "lucide-react"
+import { Property } from "@/types/property"
+import { formatPrice, isNewProperty, cn } from "@/lib/utils"
+import { CATEGORY_LABELS } from "@/lib/constants"
+import React from "react"
 
 interface PropertyCardProps {
-  property: Property;
+  property: Property
 }
 
 /** Individual property card with image, details, and link */
 const PropertyCard = React.memo(({ property }: PropertyCardProps) => {
-  const isNew = isNewProperty(property.createdAt);
+  const isNew = isNewProperty(property.createdAt)
 
   return (
     <Link
-      to={`/annonces/${property.slug}`}
+      href={`/annonces/${property.slug}`}
       className="group block bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:scale-[1.02]"
     >
       {/* Image */}
@@ -85,9 +85,9 @@ const PropertyCard = React.memo(({ property }: PropertyCardProps) => {
         </div>
       </div>
     </Link>
-  );
-});
+  )
+})
 
-PropertyCard.displayName = "PropertyCard";
+PropertyCard.displayName = "PropertyCard"
 
-export default PropertyCard;
+export default PropertyCard

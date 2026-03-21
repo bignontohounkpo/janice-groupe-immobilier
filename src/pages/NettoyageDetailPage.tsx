@@ -1,4 +1,7 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+"use client";
+
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Home, Briefcase, GraduationCap, HardHat, PartyPopper, CalendarCheck,
@@ -78,7 +81,7 @@ const FormulaCard = ({ formula }: { formula: CleaningFormula }) => (
     <p className="text-sm text-foreground mb-3">{formula.included}</p>
     <p className="font-heading font-bold text-primary text-lg">{formula.price}</p>
     <Link
-      to="/contact"
+      href="/contact"
       className="mt-4 inline-block bg-primary text-primary-foreground text-sm font-semibold px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
     >
       {formula.price === "Sur devis" ? "Demander un devis" : "Choisir cette formule"}
@@ -100,7 +103,12 @@ const NettoyageDetailPage = () => {
     }
   }, [service]);
 
-  if (!service) return <Navigate to="/nettoyage" replace />;
+  if (!service) {
+    if (typeof window !== "undefined") {
+      window.location.href = "/nettoyage";
+    }
+    return null;
+  }
 
   const otherServices = CLEANING_SERVICES.filter((s) => s.slug !== service.slug);
 
@@ -121,9 +129,9 @@ const NettoyageDetailPage = () => {
         <div className="relative container-custom max-w-4xl mx-auto py-14 md:py-20 text-primary-foreground">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-primary-foreground/70 text-sm mb-6">
-            <Link to="/" className="hover:text-primary-foreground transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-primary-foreground transition-colors">Accueil</Link>
             <ChevronRight size={14} />
-            <Link to="/nettoyage" className="hover:text-primary-foreground transition-colors">Nettoyage</Link>
+            <Link href="/nettoyage" className="hover:text-primary-foreground transition-colors">Nettoyage</Link>
             <ChevronRight size={14} />
             <span className="text-primary-foreground">{service.title}</span>
           </nav>
@@ -184,7 +192,7 @@ const NettoyageDetailPage = () => {
             <div className="text-center bg-muted rounded-2xl p-8">
               <p className="text-foreground font-medium">{service.formulaMessage}</p>
               <Link
-                to="/contact"
+                href="/contact"
                 className="mt-4 inline-block bg-accent text-accent-foreground font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
                 Contactez-nous
@@ -204,7 +212,7 @@ const NettoyageDetailPage = () => {
             {otherServices.map((s) => {
               const Icon = ICON_MAP[s.icon] ?? Home;
               return (
-                <Link key={s.id} to={`/nettoyage/${s.slug}`}>
+                <Link key={s.id} href={`/nettoyage/${s.slug}`}>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="group bg-card rounded-2xl border border-border p-5 shadow-card hover:shadow-card-hover transition-all duration-300 hover:border-b-4 hover:border-b-accent"

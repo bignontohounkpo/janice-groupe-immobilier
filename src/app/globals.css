@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 210 29% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 29% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 29% 15%;
+
+    --primary: 204 63% 28%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 207 65% 47%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 37 90% 51%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 10% 45%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 149 63% 32%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 204 63% 28%;
+
+    --radius: 1rem;
+
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --shadow-card: 0 4px 24px -4px hsl(210 29% 15% / 0.08);
+    --shadow-card-hover: 0 12px 40px -8px hsl(210 29% 15% / 0.15);
+    --shadow-navbar: 0 2px 16px -2px hsl(210 29% 15% / 0.08);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply py-12 md:py-20;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.92), hsl(var(--secondary) / 0.75));
+  }
+
+  .gradient-cta {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+  }
+}
