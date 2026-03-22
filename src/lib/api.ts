@@ -104,3 +104,88 @@ export async function submitContactForm(data: {
   if (!res.ok) throw new Error("Failed to submit contact form")
   return res.json()
 }
+
+/**
+ * ADMIN: Créer une propriété
+ */
+export async function createProperty(data: any): Promise<{ id: string }> {
+  const res = await fetch(`${BASE}/api/properties`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error("Failed to create property")
+  return res.json()
+}
+
+/**
+ * ADMIN: Modifier une propriété
+ */
+export async function updateProperty(id: string, data: any): Promise<{ id: string }> {
+  const res = await fetch(`${BASE}/api/properties/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error("Failed to update property")
+  return res.json()
+}
+
+/**
+ * ADMIN: Supprimer une propriété
+ */
+export async function deleteProperty(id: string): Promise<{ success: boolean }> {
+  const res = await fetch(`${BASE}/api/properties/${id}`, {
+    method: "DELETE",
+  })
+  if (!res.ok) throw new Error("Failed to delete property")
+  return res.json()
+}
+
+/**
+ * ADMIN: Récupérer toutes les catégories
+ */
+export async function fetchCategories(): Promise<any[]> {
+  const res = await fetch(`${BASE}/api/categories`, {
+    next: { revalidate: 60 },
+  } as NextFetchRequestInit)
+  if (!res.ok) throw new Error("Failed to fetch categories")
+  return res.json()
+}
+
+/**
+ * ADMIN: Créer une catégorie
+ */
+export async function createCategory(name: string): Promise<any> {
+  const res = await fetch(`${BASE}/api/categories`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  })
+  if (!res.ok) throw new Error("Failed to create category")
+  return res.json()
+}
+
+/**
+ * ADMIN: Modifier une catégorie
+ */
+export async function updateCategory(id: string, name: string): Promise<any> {
+  const res = await fetch(`${BASE}/api/categories/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
+  })
+  if (!res.ok) throw new Error("Failed to update category")
+  return res.json()
+}
+
+/**
+ * ADMIN: Supprimer une catégorie
+ */
+export async function deleteCategory(id: string): Promise<{ success: boolean }> {
+  const res = await fetch(`${BASE}/api/categories/${id}`, {
+    method: "DELETE",
+  })
+  if (!res.ok) throw new Error("Failed to delete category")
+  return res.json()
+}

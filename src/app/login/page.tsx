@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -31,11 +33,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 relative">
+      <Link 
+        href="/"
+        className="absolute top-6 left-4 md:left-8 text-gray-400 hover:text-white flex items-center gap-2 transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
+      >
+        <ArrowLeft size={20} />
+        <span className="font-medium text-sm">Retourner à l'accueil</span>
+      </Link>
+      
       <div className="w-full max-w-sm">
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Horizon Bénin</h1>
+            <h1 className="text-3xl font-bold text-white mb-2">Janice Groupe Immobilier</h1>
             <p className="text-gray-400 text-sm">Espace Administrateur</p>
           </div>
 

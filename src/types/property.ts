@@ -27,6 +27,7 @@ export interface Property {
   isFurnished: boolean;
   isAvailable: boolean;
   isFeatured: boolean;
+  status: 'active' | 'rented' | 'sold';
   amenities: string[];
   createdAt: string;
 }
