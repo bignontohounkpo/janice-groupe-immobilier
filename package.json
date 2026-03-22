@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "import:properties": "tsx scripts/import-properties.ts"
+    "import:properties": "tsx scripts/import-properties.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1014.0",
