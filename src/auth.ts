@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { PrismaClient } from "@/generated/prisma"
 import authConfig from "@/auth.config"
+import { UserRole } from "@/types/user"
 
 /**
  * Configuration complète NextAuth (Node.js Runtime uniquement).
@@ -40,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          role: user.role,
+          role: user.role as UserRole,
         }
       },
     }),

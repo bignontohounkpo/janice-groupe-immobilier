@@ -1,18 +1,20 @@
 "use client"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Building2, Tag, LogOut, X } from "lucide-react"
+import { Session } from "next-auth"
+import { LayoutDashboard, Building2, Tag, Settings, LogOut, X } from "lucide-react"
 
 interface AdminSidebarProps {
   isOpen: boolean
   onClose: () => void
-  user: any
+  user: Session["user"]
 }
 
 const navItems = [
   { href: "/admin", label: "Vue d'ensemble", icon: LayoutDashboard },
   { href: "/admin/properties", label: "Biens", icon: Building2 },
   { href: "/admin/categories", label: "Catégories", icon: Tag },
+  { href: "/admin/settings", label: "Paramètres", icon: Settings },
 ]
 
 import { signOut } from "next-auth/react"

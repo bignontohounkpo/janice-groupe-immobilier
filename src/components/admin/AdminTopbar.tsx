@@ -4,9 +4,11 @@ import { usePathname, useRouter } from "next/navigation"
 import { Menu, Plus, ExternalLink, User, LogOut } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 
+import { Session } from "next-auth"
+
 interface AdminTopbarProps {
   onMenuClick: () => void
-  user: any
+  user: Session["user"]
 }
 
 import { signOut } from "next-auth/react"
@@ -34,6 +36,7 @@ export default function AdminTopbar({ onMenuClick, user }: AdminTopbarProps) {
     if (pathname === "/admin/properties/new") return "Ajouter un bien"
     if (pathname.startsWith("/admin/properties/")) return "Modifier le bien"
     if (pathname === "/admin/categories") return "Catégories de biens"
+    if (pathname === "/admin/settings") return "Paramètres de l'agence"
     return "Administration"
   }
 

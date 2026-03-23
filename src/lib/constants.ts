@@ -1,12 +1,12 @@
 /** Global constants for the real estate agency website */
 
 export const AGENCY = {
-  NAME: "JANICE GROUPE IMMOBILIER",
-  PHONE: "+229 97507052",
-  PHONE_LINK: "tel:+22997507052",
-  EMAIL: "contact@gji-immobilier-benin.com",
-  ADDRESS: "Cotonou, Bénin",
-  WHATSAPP: "https://wa.me/22997507052",
+  NAME: process.env.NEXT_PUBLIC_AGENCY_NAME || "JANICE GROUPE IMMOBILIER",
+  PHONE: process.env.NEXT_PUBLIC_AGENCY_PHONE || "+229 97507052",
+  PHONE_LINK: `tel:${(process.env.NEXT_PUBLIC_AGENCY_PHONE || "+229 97507052").replace(/\s+/g, "")}`,
+  EMAIL: process.env.NEXT_PUBLIC_AGENCY_EMAIL || "contact@gji-immobilier-benin.com",
+  ADDRESS: process.env.NEXT_PUBLIC_AGENCY_ADDRESS || "Cotonou, Bénin",
+  WHATSAPP: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "22997507052"}`,
 } as const;
 
 export const NAV_LINKS = [
@@ -23,7 +23,7 @@ export const HERO = {
   SUBTITLE: "Appartements, villas et terrains à Cotonou et environs. Notre équipe vous accompagne de la recherche à la signature.",
   CTA_PRIMARY: "Rechercher",
   CTA_SECONDARY: "Nous contacter",
-  BADGE: "⭐ +250 biens disponibles · Cotonou · Calavi · Abomey-Calavi",
+  BADGE: "+250 biens disponibles · Cotonou · Calavi · Abomey-Calavi",
 } as const;
 
 export const SERVICES = {

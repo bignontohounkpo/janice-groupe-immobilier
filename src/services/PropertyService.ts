@@ -13,6 +13,7 @@ export class PropertyService {
     offerType?: "louer" | "vendre"
     category?: string
     district?: string
+    city?: string
     status?: "active" | "rented" | "sold"
   }): Promise<Property[]> {
     const where: any = {}
@@ -26,6 +27,7 @@ export class PropertyService {
     if (filters?.offerType) where.offerType = filters.offerType
     if (filters?.category) where.category = { slug: filters.category }
     if (filters?.district) where.district = { name: filters.district }
+    if (filters?.city) where.city = filters.city
 
     const properties = await prisma.property.findMany({
       where,
@@ -164,5 +166,42 @@ export class PropertyService {
       createdAt: p.createdAt.toISOString(),
       updatedAt: p.updatedAt.toISOString()
     })) as unknown as Property[]
+  }
+
+  static async getUsedLocations(offerType?: string): Promise<{ cities: string[], districts: { name: string, city: string }[] }> {
+    const where: any = { status: "active" };
+    if (offerType) {
+      where.offerType = offerType;
+    }
+
+    const distinctCities = await prisma.property.findMany({
+      where,
+      select: { city: true },
+      distinct: ["city"],
+    });
+
+    const distinctDistricts = await prisma.property.findMany({
+      where: { 
+        ...where,
+        districtId: { not: null }
+      },
+      select: { 
+        district: {
+          select: {
+            name: true,
+            city: true
+          }
+        }
+      },
+      distinct: ["districtId"],
+    });
+
+    return {
+      cities: distinctCities.map(c => c.city).sort(),
+      districts: distinctDistricts
+        .map(d => d.district as { name: string, city: string })
+        .filter(d => !!d && !!d.name)
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    };
   }
 }

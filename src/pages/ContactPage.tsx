@@ -1,9 +1,13 @@
+"use client";
+
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { AGENCY } from "@/lib/constants";
 import ContactForm from "@/components/forms/ContactForm";
+import { useSettings } from "@/context/SettingsContext";
 
 /** Contact page with form and agency info */
 const ContactPage = () => {
+  const { agency } = useSettings();
+
   return (
     <main className="section-padding">
       <div className="container-custom">
@@ -31,18 +35,18 @@ const ContactPage = () => {
               <ul className="space-y-4 text-sm">
                 <li className="flex items-start gap-3">
                   <MapPin size={18} className="text-accent shrink-0 mt-0.5" />
-                  <span className="text-foreground">{AGENCY.ADDRESS}</span>
+                  <span className="text-foreground">{agency.ADDRESS}</span>
                 </li>
                 <li>
-                  <a href={AGENCY.PHONE_LINK} className="flex items-start gap-3 hover:text-primary transition-colors">
+                  <a href={agency.PHONE_LINK} className="flex items-start gap-3 hover:text-primary transition-colors">
                     <Phone size={18} className="text-accent shrink-0 mt-0.5" />
-                    <span className="text-foreground">{AGENCY.PHONE}</span>
+                    <span className="text-foreground">{agency.PHONE}</span>
                   </a>
                 </li>
                 <li>
-                  <a href={`mailto:${AGENCY.EMAIL}`} className="flex items-start gap-3 hover:text-primary transition-colors">
+                  <a href={`mailto:${agency.EMAIL}`} className="flex items-start gap-3 hover:text-primary transition-colors">
                     <Mail size={18} className="text-accent shrink-0 mt-0.5" />
-                    <span className="text-foreground">{AGENCY.EMAIL}</span>
+                    <span className="text-foreground">{agency.EMAIL}</span>
                   </a>
                 </li>
                 <li className="flex items-start gap-3">
@@ -58,7 +62,7 @@ const ContactPage = () => {
                 Appelez-nous directement ou envoyez-nous un message WhatsApp.
               </p>
               <a
-                href={AGENCY.WHATSAPP}
+                href={agency.WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block bg-success text-success-foreground font-semibold text-sm px-6 py-2.5 rounded-full hover:opacity-90 transition-opacity"
