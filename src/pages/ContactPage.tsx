@@ -1,3 +1,5 @@
+"use client"
+
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { AGENCY } from "@/lib/constants";
 import ContactForm from "@/components/forms/ContactForm";
