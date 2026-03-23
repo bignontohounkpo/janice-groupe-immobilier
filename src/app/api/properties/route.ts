@@ -18,10 +18,14 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category")
     const district = searchParams.get("district")
     const search = searchParams.get("search")
+    const status = searchParams.get("status")
     const page = Number.parseInt(searchParams.get("page") ?? "1", 10)
     const pageSize = Number.parseInt(searchParams.get("pageSize") ?? "12", 10)
 
-    const where: any = { status: "active" }
+    const where: any = {}
+    if (status !== "all") {
+      where.status = "active"
+    }
 
     if (offerType) where.offerType = offerType
     if (category) where.category = { slug: category }
@@ -83,9 +87,13 @@ export async function POST(request: NextRequest) {
         lat: coordinates?.lat,
         lng: coordinates?.lng,
         city: city || "Cotonou",
-        status: "active",
         category: category ? { connect: { slug: category } } : undefined,
-        district: district ? { connect: { name_city: { name: district, city: city || "Cotonou" } } } : undefined,
+        district: district ? { 
+          connectOrCreate: { 
+            where: { name_city: { name: district, city: city || "Cotonou" } },
+            create: { name: district, city: city || "Cotonou" }
+          } 
+        } : undefined,
       }
     })
 
