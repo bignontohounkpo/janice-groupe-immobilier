@@ -6,11 +6,13 @@ import { usePathname } from "next/navigation"
 import { Menu, X, Phone } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useScrollTop } from "@/hooks/useScrollTop"
-import { AGENCY, NAV_LINKS } from "@/lib/constants"
+import { NAV_LINKS } from "@/lib/constants"
 import { cn } from "@/lib/utils"
+import { useSettings } from "@/context/SettingsContext"
 
 /** Main navigation bar — sticky with shadow on scroll */
 const Navbar = () => {
+  const { agency } = useSettings()
   const [mobileOpen, setMobileOpen] = useState(false)
   const scrolled = useScrollTop()
   const pathname = usePathname()
@@ -20,12 +22,12 @@ const Navbar = () => {
       {/* Top bar */}
       <div className="bg-primary text-primary-foreground text-sm py-2 hidden md:block">
         <div className="container-custom flex justify-between items-center">
-          <span>{AGENCY.ADDRESS}</span>
+          <span>{agency.ADDRESS}</span>
           <div className="flex items-center gap-4">
-            <a href={`mailto:${AGENCY.EMAIL}`} className="hover:underline">{AGENCY.EMAIL}</a>
-            <a href={AGENCY.PHONE_LINK} className="flex items-center gap-1 hover:underline">
+            <a href={`mailto:${agency.EMAIL}`} className="hover:underline">{agency.EMAIL}</a>
+            <a href={agency.PHONE_LINK} className="flex items-center gap-1 hover:underline">
               <Phone size={14} />
-              {AGENCY.PHONE}
+              {agency.PHONE}
             </a>
           </div>
         </div>
@@ -42,10 +44,10 @@ const Navbar = () => {
           <Link href="/" className="flex items-center gap-2">
             <img
               src="/logo.webp"
-              alt={AGENCY.NAME}
+              alt={agency.NAME}
               className="h-20 w-20"
             />
-            <span className="sr-only">{AGENCY.NAME}</span>
+            <span className="sr-only">{agency.NAME}</span>
           </Link>
 
           {/* Desktop nav */}
@@ -106,11 +108,11 @@ const Navbar = () => {
                   </Link>
                 ))}
                 <a
-                  href={AGENCY.PHONE_LINK}
+                  href={agency.PHONE_LINK}
                   className="flex items-center gap-2 py-2 text-primary font-medium"
                 >
                   <Phone size={18} />
-                  {AGENCY.PHONE}
+                  {agency.PHONE}
                 </a>
               </div>
             </motion.div>

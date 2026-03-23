@@ -4,9 +4,11 @@ import { useState } from "react"
 import AdminSidebar from "@/components/admin/AdminSidebar"
 import AdminTopbar from "@/components/admin/AdminTopbar"
 
+import { Session } from "next-auth"
+
 interface AdminShellProps {
   children: React.ReactNode
-  user: any
+  user: Session["user"]
 }
 
 export default function AdminShell({ children, user }: AdminShellProps) {

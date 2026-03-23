@@ -1,6 +1,9 @@
-import { AGENCY } from "@/lib/constants"
+"use client"
+
+import { useSettings } from "@/context/SettingsContext"
 
 export default function MentionsLegalesPage() {
+  const { agency } = useSettings()
   return (
     <main className="section-padding">
       <div className="container-custom max-w-3xl">
@@ -10,10 +13,10 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="font-heading font-semibold text-xl text-foreground">Éditeur du site</h2>
             <p className="text-muted-foreground">
-              {AGENCY.NAME}<br />
-              {AGENCY.ADDRESS}<br />
-              Téléphone : {AGENCY.PHONE}<br />
-              Email : {AGENCY.EMAIL}
+              {agency.NAME}<br />
+              {agency.ADDRESS}<br />
+              Téléphone : {agency.PHONE}<br />
+              Email : {agency.EMAIL}
             </p>
           </section>
 
@@ -28,7 +31,7 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="font-heading font-semibold text-xl text-foreground">Protection des données</h2>
             <p className="text-muted-foreground">
-              Les informations collectées via les formulaires de contact sont destinées exclusivement à {AGENCY.NAME} et ne sont
+              Les informations collectées via les formulaires de contact sont destinées exclusivement à {agency.NAME} et ne sont
               jamais transmises à des tiers. Conformément à la réglementation en vigueur, vous disposez d'un droit d'accès,
               de modification et de suppression de vos données personnelles.
             </p>
@@ -37,7 +40,7 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="font-heading font-semibold text-xl text-foreground">Responsabilité</h2>
             <p className="text-muted-foreground">
-              {AGENCY.NAME} s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne pouvons
+              {agency.NAME} s'efforce de fournir des informations exactes et à jour sur ce site. Toutefois, nous ne pouvons
               garantir l'exhaustivité ni l'absence d'erreurs dans les contenus publiés.
             </p>
           </section>

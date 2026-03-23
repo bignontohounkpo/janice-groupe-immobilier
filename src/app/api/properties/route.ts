@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     const offerType = searchParams.get("offerType")
     const category = searchParams.get("category")
     const district = searchParams.get("district")
+    const city = searchParams.get("city")
     const search = searchParams.get("search")
     const status = searchParams.get("status")
     const page = Number.parseInt(searchParams.get("page") ?? "1", 10)
@@ -30,6 +31,7 @@ export async function GET(request: NextRequest) {
     if (offerType) where.offerType = offerType
     if (category) where.category = { slug: category }
     if (district) where.district = { name: district }
+    if (city) where.city = city
     if (search) {
       const q = search.toLowerCase()
       where.OR = [
