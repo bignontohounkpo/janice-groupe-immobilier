@@ -16,7 +16,7 @@ const ContactPage = () => {
             Parlons de votre projet
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Notre équipe vous répond sous 48h. Consultation gratuite et sans engagement.
+            Notre équipe vous répond sous peu. Consultation gratuite et sans engagement.
           </p>
         </div>
 

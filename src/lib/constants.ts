@@ -22,7 +22,7 @@ export const HERO = {
   TITLE: "Trouvez le bien immobilier de vos rêves au Bénin",
   SUBTITLE: "Appartements, villas et terrains à Cotonou et environs. Notre équipe vous accompagne de la recherche à la signature.",
   CTA_PRIMARY: "Rechercher",
-  CTA_SECONDARY: "Nous contacter",
+  CTA_SECONDARY: "Nos Opportunittés",
   BADGE: "+250 biens disponibles · Cotonou · Calavi · Abomey-Calavi",
 } as const;
 
@@ -65,7 +65,7 @@ export const STATS = [
   { value: "250+", label: "Biens disponibles" },
   { value: "12+", label: "Années d'expérience" },
   { value: "98%", label: "Clients satisfaits" },
-  { value: "48h", label: "Délai de réponse moyen" },
+  { value: "24h", label: "Délai de réponse moyen" },
 ] as const;
 
 export const PROCESS = {

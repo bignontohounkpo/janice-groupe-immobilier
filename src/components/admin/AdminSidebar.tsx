@@ -44,20 +44,17 @@ export default function AdminSidebar({ isOpen, onClose, user }: AdminSidebarProp
         } flex flex-col`}
       >
         <div className="p-6">
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center ">
             <h1 className="font-bold text-xl leading-tight">
-              Janice Group<br />International
+              Janice Group
             </h1>
             <button className="lg:hidden text-white/80 hover:text-white" onClick={onClose}>
               <X size={24} />
             </button>
           </div>
-          <span className="inline-block px-2 py-1 bg-white/20 rounded text-xs font-semibold uppercase tracking-wider">
-            Administration
-          </span>
         </div>
 
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-3  space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             // For properties/categories, also match sub-routes for active state
             const isActive = pathname ? (item.href === "/admin" 

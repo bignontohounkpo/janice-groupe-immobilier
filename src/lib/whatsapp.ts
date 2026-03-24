@@ -32,5 +32,5 @@ export function getWhatsAppLink(message?: string, phoneNumber?: string): string 
 export function getPropertyWhatsAppMessage(title: string, slug: string, price: number, location: string): string {
   const priceFormatted = formatPrice(price);
   
-  return `Bonjour Horizon Bénin Properties, je suis très intéressé par l'annonce suivante :\n\n*${title}*\n *Lieu :* ${location}\n *Prix :* ${priceFormatted}\n\n`;
+  return `Bonjour Groupe Janice Immobilier, je suis très intéressé par l'annonce suivante :\n\n*${title}*\n *Lieu :* ${location}\n *Prix :* ${priceFormatted}\n\n`;
 }

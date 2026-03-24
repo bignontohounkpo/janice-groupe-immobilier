@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ChevronLeft, ChevronRight, SearchX, AlertCircle } from "lucide-react"
 import { fetchPropertiesPaginated, fetchUsedCategories, fetchUsedLocations } from "@/lib/api"

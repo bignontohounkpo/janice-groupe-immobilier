@@ -46,12 +46,6 @@ const HeroSection = () => {
             </Link>
             <Link
               href="/opportunites"
-              className="bg-secondary text-secondary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:opacity-90 transition-opacity text-center"
-            >
-              Nos opportunités
-            </Link>
-            <Link
-              href="/contact"
               className="border-2 border-primary-foreground/80 text-primary-foreground font-semibold text-base px-8 py-3.5 rounded-full hover:bg-primary-foreground/10 transition-colors text-center"
             >
               {HERO.CTA_SECONDARY}
