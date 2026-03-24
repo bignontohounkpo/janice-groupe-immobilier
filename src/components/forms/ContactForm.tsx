@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, type ContactFormValues } from "@/lib/validations";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useSettings } from "@/context/SettingsContext";
+import { submitContactForm } from "@/lib/api";
 
 interface ContactFormProps {
   propertyId?: string;
@@ -14,6 +16,7 @@ interface ContactFormProps {
 /** Reusable contact form with validation and honeypot */
 const ContactForm = ({ propertyId, compact }: ContactFormProps) => {
   const [submitting, setSubmitting] = useState(false);
+  const { agency } = useSettings();
 
   const {
     register,
@@ -25,15 +28,35 @@ const ContactForm = ({ propertyId, compact }: ContactFormProps) => {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    if (data.honeypot) return; // spam bot
+    if (data.honeypot) return;
     setSubmitting(true);
+
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success("Message envoyé ! Nous vous répondons sous 48h.");
+      // 1. Garder une trace en base (async, non bloquant)
+      submitContactForm({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+        propertyId: propertyId,
+      }).catch(err => console.error("Erreur sauvegarde contact:", err));
+
+      // 2. Ouvrir WhatsApp avec message pré-rempli
+      const whatsappNumber = agency.WHATSAPP.replace("https://wa.me/", "");
+      const message = `Bonjour, je suis ${data.name} (${data.phone})
+
+Je souhaite vous contacter pour un projet. Avez-vous un moment ?
+
+${data.message}`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      window.open(whatsappUrl, "_blank");
+
+      toast.success("Redirection vers WhatsApp...");
       reset();
     } catch {
-      toast.error("Erreur lors de l'envoi. Veuillez réessayer.");
+      toast.error("Erreur lors de l'envoi.");
     } finally {
       setSubmitting(false);
     }

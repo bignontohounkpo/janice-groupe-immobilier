@@ -12,7 +12,6 @@ async function main() {
   const agencySettings = {
     name: AGENCY.NAME,
     phone: AGENCY.PHONE,
-    phone_link: AGENCY.PHONE_LINK,
     email: AGENCY.EMAIL,
     address: AGENCY.ADDRESS,
     whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "22997507052",

@@ -243,3 +243,41 @@ export async function fetchSettings(): Promise<Record<string, string>> {
   if (!res.ok) throw new Error("Failed to fetch settings")
   return res.json()
 }
+/**
+ * ADMIN: Mettre à jour les paramètres de l'agence
+ */
+export async function updateSettings(data: Record<string, string>): Promise<{ success: boolean }> {
+  const res = await fetch(`${BASE}/api/settings`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  if (!res.ok) throw new Error("Failed to update settings")
+  return res.json()
+}
+
+/**
+ * Récupérer toutes les villes uniques
+ */
+export async function fetchCities(): Promise<string[]> {
+  const res = await fetch(`${BASE}/api/cities`, {
+    next: { revalidate: 60 },
+  } as NextFetchRequestInit)
+  if (!res.ok) throw new Error("Failed to fetch cities")
+  return res.json()
+}
+
+/**
+ * Rechercher des districts dynamiquement
+ */
+export async function searchDistricts(query: string, city?: string): Promise<string[]> {
+  const params = new URLSearchParams()
+  if (query) params.set("search", query)
+  if (city) params.set("city", city)
+  params.set("limit", "50")
+
+  const res = await fetch(`${BASE}/api/districts?${params}`)
+  if (!res.ok) throw new Error("Failed to search districts")
+  const data = await res.json()
+  return data.map((d: any) => d.name)
+}

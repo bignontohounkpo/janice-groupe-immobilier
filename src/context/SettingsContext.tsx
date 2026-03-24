@@ -29,10 +29,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     try {
       const dbSettings = await fetchSettings();
       
+      const phone = dbSettings.phone || FALLBACK_AGENCY.PHONE;
+
       setAgency({
         NAME: dbSettings.name || FALLBACK_AGENCY.NAME,
-        PHONE: dbSettings.phone || FALLBACK_AGENCY.PHONE,
-        PHONE_LINK: dbSettings.phone_link || FALLBACK_AGENCY.PHONE_LINK,
+        PHONE: phone,
+        PHONE_LINK: `tel:${phone.replace(/\s+/g, "")}`,
         EMAIL: dbSettings.email || FALLBACK_AGENCY.EMAIL,
         ADDRESS: dbSettings.address || FALLBACK_AGENCY.ADDRESS,
         WHATSAPP: dbSettings.whatsapp ? `https://wa.me/${dbSettings.whatsapp}` : FALLBACK_AGENCY.WHATSAPP,

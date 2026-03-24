@@ -6,15 +6,16 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search");
     const city = searchParams.get("city");
-    
-    const limit = Number.parseInt(searchParams.get("limit") ?? "50", 10); 
+
+    const limitParam = searchParams.get("limit");
+    const limit = limitParam ? Number.parseInt(limitParam, 10) : 50;
 
     const whereClause: any = {};
-    
+
     if (search) {
       whereClause.name = { contains: search, mode: "insensitive" };
     }
-    
+
     if (city) {
       whereClause.city = { contains: city, mode: "insensitive" };
     }
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
     const districts = await prisma.district.findMany({
       where: whereClause,
       orderBy: { name: "asc" },
-      take: limit,
+      ...(limit > 0 ? { take: limit } : {}),
     });
 
     return NextResponse.json(districts);
