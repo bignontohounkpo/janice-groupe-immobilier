@@ -93,7 +93,8 @@ const FormulaCard = ({ formula }: { formula: CleaningFormula }) => (
 
 /** Dynamic cleaning service detail page at /nettoyage/:slug */
 const NettoyageDetailPage = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const params = useParams();
+  const slug = params?.slug as string | undefined;
   const service = slug ? getCleaningServiceBySlug(slug) : undefined;
 
   /* Update document title for SEO */
