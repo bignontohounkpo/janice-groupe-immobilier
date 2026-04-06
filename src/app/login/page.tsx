@@ -33,25 +33,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 relative">
+    <div className="min-h-screen flex items-center justify-center bg-muted px-4 relative">
       <Link
         href="/"
-        className="absolute top-6 left-4 md:left-8 text-gray-400 hover:text-white flex items-center gap-2 transition-colors px-3 py-2 rounded-lg hover:bg-white/5"
+        className="absolute top-6 left-4 md:left-8 text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors px-3 py-2 rounded-lg hover:bg-card"
       >
         <ArrowLeft size={20} />
-        <span className="font-medium text-sm">Retourner à l'accueil</span>
+        <span className="font-medium text-sm">Retourner à l&apos;accueil</span>
       </Link>
 
       <div className="w-full max-w-sm">
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-card border border-border rounded-2xl p-8 shadow-card">
           <div className="text-center mb-8">
-            <h1 className="text-lg font-bold text-white mb-2">Janice Groupe Immobilier</h1>
-            <p className="text-gray-400 text-sm">Espace Administrateur</p>
+            <h1 className="text-lg font-heading font-bold text-foreground mb-2">Janice Groupe Immobilier</h1>
+            <p className="text-muted-foreground text-sm">Espace Administrateur</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">
                 Email
               </label>
               <input
@@ -60,13 +60,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
-                placeholder="admin@horizonbenin.com"
+                className="w-full px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition"
+                placeholder="contact@gmail.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
+              <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1.5">
                 Mot de passe
               </label>
               <input
@@ -75,13 +75,13 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
+                className="w-full px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition"
                 placeholder="••••••••"
               />
             </div>
 
             {error && (
-              <div className="p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm text-center">
+              <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg text-destructive text-sm text-center">
                 {error}
               </div>
             )}
@@ -89,17 +89,27 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-200 ${loading
-                  ? "bg-amber-600/50 text-amber-200 cursor-not-allowed"
-                  : "bg-amber-500 hover:bg-amber-400 text-gray-900 shadow-lg shadow-amber-500/25 hover:shadow-amber-400/40"
-                }`}
+              className={`w-full py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-200 ${
+                loading
+                  ? "bg-accent/60 text-accent-foreground cursor-not-allowed"
+                  : "bg-accent hover:bg-accent/90 text-accent-foreground shadow-card hover:shadow-card-hover"
+              }`}
             >
               {loading ? "Connexion..." : "Se connecter"}
             </button>
+
+            <div className="text-center">
+              <Link
+                href="/forgot-password"
+                className="text-sm text-primary hover:text-secondary transition-colors"
+              >
+                Mot de passe oublié ?
+              </Link>
+            </div>
           </form>
         </div>
-        <p className="text-center text-gray-600 text-xs mt-6">
-          © {new Date().getFullYear()} Horizon Bénin Properties
+        <p className="text-center text-muted-foreground text-xs mt-6">
+          &copy; {new Date().getFullYear()} Horizon Bénin Properties
         </p>
       </div>
     </div>

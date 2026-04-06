@@ -8,19 +8,19 @@ import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
 
-const ADMIN_EMAIL = "admin@horizonbenin.com"
-const ADMIN_PASSWORD = "Admin@2026!"
-const ADMIN_NAME = "Admin Horizon"
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL!
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD!
+const ADMIN_NAME = process.env.ADMIN_NAME || "Admin"
 
 async function createAdmin() {
-  console.log("🔐 Création du compte administrateur...\n")
+  console.log("Création du compte administrateur...\n")
 
   const existing = await prisma.user.findUnique({
     where: { email: ADMIN_EMAIL },
   })
 
   if (existing) {
-    console.log(`⏭️  L'admin "${ADMIN_EMAIL}" existe déjà.`)
+    console.log(`L'admin "${ADMIN_EMAIL}" existe déjà.`)
     return
   }
 
@@ -35,16 +35,12 @@ async function createAdmin() {
     },
   })
 
-  console.log(`✅ Compte admin créé avec succès !`)
-  console.log(`   📧 Email : ${user.email}`)
-  console.log(`   🔑 Mot de passe : ${ADMIN_PASSWORD}`)
-  console.log(`   👤 Nom : ${user.name}`)
-  console.log(`\n⚠️  Change le mot de passe dès ta première connexion !`)
+  console.log(`Compte admin créé avec succès !`)
 }
 
 createAdmin()
   .catch((e) => {
-    console.error("❌ Erreur :", e)
+    console.error("Erreur :", e)
     process.exit(1)
   })
   .finally(async () => {

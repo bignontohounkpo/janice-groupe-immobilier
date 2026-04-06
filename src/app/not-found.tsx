@@ -39,7 +39,7 @@ export default function NotFound() {
         <div className="space-y-4">
           <h2 className="text-3xl font-bold text-[#1A5276]">Page Introuvable</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Oups ! La page que vous recherchez semble avoir déménagé ou n'existe plus. 
+            Oups ! La page que vous recherchez semble ne pas être disponible. 
             Vérifiez l'URL ou revenez sur nos annonces immobilières.
           </p>
         </div>

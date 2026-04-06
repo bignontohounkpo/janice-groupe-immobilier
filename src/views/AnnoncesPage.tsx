@@ -37,7 +37,7 @@ const AnnoncesPage = ({
 
   const [properties, setProperties] = useState<Property[]>([])
   const [total, setTotal] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
+  const currentPage = Number.parseInt(searchParams?.get("page") || "1", 10)
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

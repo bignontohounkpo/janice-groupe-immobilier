@@ -146,7 +146,7 @@ export function FileDropzone({ onUploadComplete }: FileDropzoneProps) {
             </div>
             <div className="space-y-1">
               <p className="font-semibold text-[#1A5276]">Chargement en cours...</p>
-              <p className="text-xs text-muted-foreground italic">Veuillez patienter pendant l'envoi vers Cloudflare R2</p>
+              <p className="text-xs text-muted-foreground italic">Veuillez patienter pendant l'upload...</p>
             </div>
           </>
         ) : (

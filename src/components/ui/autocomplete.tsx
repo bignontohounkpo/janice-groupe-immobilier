@@ -11,6 +11,7 @@ interface AutocompleteProps {
   ariaLabel?: string
   className?: string
   noResultsMessage?: string
+  allowFreeText?: boolean
 }
 
 export function Autocomplete({
@@ -20,7 +21,8 @@ export function Autocomplete({
   placeholder = "Rechercher...",
   ariaLabel = "Recherche",
   className = "",
-  noResultsMessage = "Aucun résultat trouvé"
+  noResultsMessage = "Aucun résultat trouvé",
+  allowFreeText = false
 }: AutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [inputValue, setInputValue] = useState(value)
@@ -75,6 +77,14 @@ export function Autocomplete({
     inputRef.current?.focus()
   }
 
+  const handleBlur = () => {
+    // Accepter la valeur saisie librement si allowFreeText est activé
+    if (allowFreeText && inputValue && inputValue !== value) {
+      onChange(inputValue)
+    }
+    setTimeout(() => setIsOpen(false), 150)
+  }
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen || filteredOptions.length === 0) return
 
@@ -116,6 +126,7 @@ export function Autocomplete({
           value={inputValue}
           onChange={e => handleInputChange(e.target.value)}
           onFocus={() => setIsOpen(true)}
+          onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           aria-label={ariaLabel}

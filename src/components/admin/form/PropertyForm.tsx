@@ -464,6 +464,8 @@ export default function PropertyForm({ id }: PropertyFormProps) {
                   }}
                   placeholder="Ex: Cotonou, Parakou..."
                   ariaLabel="Ville"
+                  allowFreeText
+                  noResultsMessage="Appuyez sur Entrée pour utiliser cette ville"
                 />
               </div>
 
@@ -484,9 +486,10 @@ export default function PropertyForm({ id }: PropertyFormProps) {
                   initialQuery=""
                   noResultsMessage={
                     formData.city
-                      ? "Aucun quartier trouvé pour cette ville"
+                      ? "Appuyez sur Entrée pour ajouter ce quartier"
                       : "Sélectionnez d'abord une ville"
                   }
+                  allowFreeText
                 />
               </div>
 

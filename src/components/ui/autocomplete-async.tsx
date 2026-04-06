@@ -14,6 +14,7 @@ interface AutocompleteAsyncProps {
   debounceMs?: number
   searchOnFocus?: boolean
   initialQuery?: string
+  allowFreeText?: boolean
 }
 
 export function AutocompleteAsync({
@@ -26,7 +27,8 @@ export function AutocompleteAsync({
   noResultsMessage = "Aucun résultat trouvé",
   debounceMs = 300,
   searchOnFocus = false,
-  initialQuery = ""
+  initialQuery = "",
+  allowFreeText = false
 }: AutocompleteAsyncProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [inputValue, setInputValue] = useState(value)
@@ -127,6 +129,14 @@ export function AutocompleteAsync({
     inputRef.current?.focus()
   }
 
+  const handleBlur = () => {
+    // Accepter la valeur saisie librement si allowFreeText est activé
+    if (allowFreeText && inputValue && inputValue !== value) {
+      onChange(inputValue)
+    }
+    setTimeout(() => setIsOpen(false), 150)
+  }
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen || options.length === 0) return
 
@@ -168,6 +178,7 @@ export function AutocompleteAsync({
           value={inputValue}
           onChange={e => handleInputChange(e.target.value)}
           onFocus={handleFocus}
+          onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           aria-label={ariaLabel}
